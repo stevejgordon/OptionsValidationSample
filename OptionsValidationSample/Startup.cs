@@ -31,10 +31,9 @@ namespace OptionsValidationSample
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.Configure<CustomConfig>(Configuration.GetSection("CustomConfig"));
-
             services.AddOptions<CustomConfig>()
-                .ValidateDataAnnotations()             
+                .Bind(Configuration.GetSection("CustomConfig"))
+                .ValidateDataAnnotations()
                 .Validate(c =>
                 {
                     if (c.Setting2 != default)
